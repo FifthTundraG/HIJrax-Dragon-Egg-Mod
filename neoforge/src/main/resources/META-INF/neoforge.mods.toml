@@ -1,0 +1,38 @@
+modLoader = "javafml"
+loaderVersion = "[2,)"
+#issueTrackerURL = ""
+license = "GNU GPL 3.0"
+
+[[mods]]
+modId = "dragoneggmod"
+version = "${version}"
+displayName = "HIJrax-Dragon-Egg-Mod"
+authors = "FifthTundraG, HIJrax"
+description = '''
+HIJrax's Dragon Egg Mod
+'''
+#logoFile = ""
+
+[[dependencies.dragoneggmod]]
+modId = "neoforge"
+type = "required"
+versionRange = "[21,)"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.dragoneggmod]]
+modId = "minecraft"
+type = "required"
+versionRange = "[1.21.8,)"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.dragoneggmod]]
+modId = "architectury"
+type = "required"
+versionRange = "[17.0.8,)"
+ordering = "AFTER"
+side = "BOTH"
+
+[[mixins]]
+config = "dragoneggmod.mixins.json"

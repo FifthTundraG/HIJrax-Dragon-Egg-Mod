@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "id": "dragoneggmod",
+  "version": "${version}",
+  "name": "HIJrax-Dragon-Egg-Mod",
+  "description": "HIJrax's Dragon Egg Mod",
+  "authors": [
+    "FifthTundraG",
+    "HIJrax"
+  ],
+  "contact": {
+    "homepage": "https://github.com/FifthTundraG/HiJrax-Dragon-Egg-Mod"
+  },
+  "license": "GPL-3.0",
+  "icon": "assets/dragoneggmod/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "me.frogtato.dragoneggmod.fabric.DragonEggModFabric"
+    ],
+    "client": [
+      "me.frogtato.dragoneggmod.fabric.client.DragonEggModFabricClient"
+    ]
+  },
+  "mixins": [
+    "dragoneggmod.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.17.3",
+    "minecraft": "~1.21.8",
+    "java": ">=21",
+    "architectury": ">=17.0.8",
+    "fabric-api": "*"
+  },
+  "suggests": {
+    "another-mod": "*"
+  }
+}

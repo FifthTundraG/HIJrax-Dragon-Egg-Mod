@@ -1,0 +1,15 @@
+{
+  "required": true,
+  "package": "me.frogtato.dragoneggmod.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "minVersion": "0.8",
+  "client": [
+  ],
+  "mixins": [
+    "BlockItemMixin",
+    "ChestMenuMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
