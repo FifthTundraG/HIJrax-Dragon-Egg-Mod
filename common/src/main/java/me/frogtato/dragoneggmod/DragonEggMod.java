@@ -7,6 +7,6 @@ public final class DragonEggMod {
 
     public static void init() {
         EggCheckHandler.init();
-        ModMobEffects.initialize();
+        ModMobEffects.init();
     }
 }

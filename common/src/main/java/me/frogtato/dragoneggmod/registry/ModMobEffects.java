@@ -16,5 +16,5 @@ public class ModMobEffects {
         return Registry.registerForHolder(BuiltInRegistries.MOB_EFFECT, ResourceLocation.fromNamespaceAndPath(DragonEggMod.MOD_ID, path), mobEffect);
     }
 
-    public static void initialize() {}
+    public static void init() {}
 }

@@ -1,6 +1,7 @@
 package me.frogtato.dragoneggmod.neoforge;
 
 import me.frogtato.dragoneggmod.DragonEggMod;
+import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.common.Mod;
 
 @Mod(DragonEggMod.MOD_ID)

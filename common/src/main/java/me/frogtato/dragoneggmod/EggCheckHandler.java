@@ -25,7 +25,7 @@ public class EggCheckHandler {
         for (ItemStack stack : player.getInventory().getNonEquipmentItems()) {
             if (stack.is(Items.DRAGON_EGG)) {
                 player.displayClientMessage(Component.literal("egg found"), false);
-                player.addEffect(new MobEffectInstance(ModMobEffects.EGG_EFFECT, 35)); // todo: why does 35 work?
+                player.addEffect(new MobEffectInstance(ModMobEffects.EGG_EFFECT, 35, 0, false, false)); // todo: why does 35 duration work? what is ambient and do we want it?
                 break;
             }
         }
