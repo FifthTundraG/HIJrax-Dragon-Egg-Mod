@@ -2,6 +2,7 @@ package me.frogtato.dragoneggmod.neoforge.client;
 
 import me.frogtato.dragoneggmod.DragonEggMod;
 import me.frogtato.dragoneggmod.client.DragonEggModClient;
+import net.minecraft.world.entity.player.Player;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.neoforge.client.event.ClientTickEvent;
@@ -15,10 +16,10 @@ public class DragonEggModNeoForgeClient {
     }
 
     private static void onClientTick(ClientTickEvent.Post event) {
-        var mc = Minecraft.getInstance();
+        Minecraft mc = Minecraft.getInstance();
         if (mc.level == null) return;
 
-        for (var player : mc.level.players()) {
+        for (Player player : mc.level.players()) {
             DragonEggModClient.update(player);
         }
     }

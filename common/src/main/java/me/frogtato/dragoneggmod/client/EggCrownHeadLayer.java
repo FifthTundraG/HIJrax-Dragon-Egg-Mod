@@ -51,7 +51,7 @@ public class EggCrownHeadLayer<S extends PlayerRenderState, M extends PlayerMode
         if (mc.level == null) return;
 
         Player foundPlayer = null;
-        for (var player : mc.level.players()) { // todo: can we make this cleaner?
+        for (Player player : mc.level.players()) {
             if (player.getId() == renderState.id) {
                 foundPlayer = player;
                 break;

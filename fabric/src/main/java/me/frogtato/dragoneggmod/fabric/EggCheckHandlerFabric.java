@@ -3,6 +3,7 @@ package me.frogtato.dragoneggmod.fabric;
 import me.frogtato.dragoneggmod.EggCheckHandler;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.entity.player.Player;
 
 public class EggCheckHandlerFabric {
     public static void init() {
@@ -11,7 +12,7 @@ public class EggCheckHandlerFabric {
 
     private static void onWorldTick(ServerLevel world) {
         // Iterate through all players in this world
-        for (var player : world.players()) {
+        for (Player player : world.players()) {
             EggCheckHandler.onPlayerTick(player);
         }
     }
