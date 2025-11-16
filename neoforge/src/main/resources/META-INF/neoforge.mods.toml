@@ -1,17 +1,17 @@
 modLoader = "javafml"
 loaderVersion = "[2,)"
-#issueTrackerURL = ""
+issueTrackerURL = "https://github.com/FifthTundraG/HIJrax-Dragon-Egg-Mod/issues"
 license = "GNU GPL 3.0"
 
 [[mods]]
 modId = "dragoneggmod"
 version = "${version}"
-displayName = "HIJrax-Dragon-Egg-Mod"
-authors = "FifthTundraG, HIJrax"
+displayName = "HIJrax's Dragon Egg Mod"
+authors = "HIJrax, FifthTundraG"
 description = '''
-HIJrax's Dragon Egg Mod
+Makes the dragon egg more powerful, but it can no longer be hidden away forever...
 '''
-#logoFile = ""
+logoFile = "assets/dragoneggmod/icon.png"
 
 [[dependencies.dragoneggmod]]
 modId = "neoforge"

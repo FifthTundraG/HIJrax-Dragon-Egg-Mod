@@ -2,14 +2,16 @@
   "schemaVersion": 1,
   "id": "dragoneggmod",
   "version": "${version}",
-  "name": "HIJrax-Dragon-Egg-Mod",
-  "description": "HIJrax's Dragon Egg Mod",
+  "name": "HIJrax's Dragon Egg Mod",
+  "description": "Makes the dragon egg more powerful, but it can no longer be hidden away forever...",
   "authors": [
-    "FifthTundraG",
-    "HIJrax"
+    "HIJrax",
+    "FifthTundraG"
   ],
   "contact": {
-    "homepage": "https://github.com/FifthTundraG/HiJrax-Dragon-Egg-Mod"
+    "homepage": "https://github.com/FifthTundraG/HIJrax-Dragon-Egg-Mod",
+    "sources": "https://github.com/FifthTundraG/HIJrax-Dragon-Egg-Mod",
+    "issues": "https://github.com/FifthTundraG/HIJrax-Dragon-Egg-Mod/issues"
   },
   "license": "GPL-3.0",
   "icon": "assets/dragoneggmod/icon.png",
@@ -26,7 +28,7 @@
     "dragoneggmod.mixins.json"
   ],
   "depends": {
-    "fabricloader": ">=0.17.3",
+    "fabricloader": ">=0.17.0",
     "minecraft": "~1.21.8",
     "java": ">=21",
     "fabric-api": "*"
