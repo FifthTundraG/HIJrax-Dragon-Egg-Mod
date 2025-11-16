@@ -14,6 +14,7 @@ import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Items;
 
 import java.util.EnumSet;
 import java.util.List;
@@ -35,7 +36,7 @@ public class EggCrownHeadLayer<S extends PlayerRenderState, M extends PlayerMode
                 0, 0,                     // texture U/V
                 -0.5F, -0.5F, -0.5F,      // origin (centered)
                 1.0F, 1.0F, 1.0F,         // dimensions
-                5.0F, 5.0F, 5.0F,         // grow (no inflation)
+                4.5F, 4.5F, 4.5F, // grow; this is set to exactly align with head equipment
                 false,                    // mirror
                 4.0F, 2.0F,               // texScaleU/V
                 faces                     // visible faces
@@ -65,8 +66,11 @@ public class EggCrownHeadLayer<S extends PlayerRenderState, M extends PlayerMode
         // Move and rotate relative to the head
         this.getParentModel().head.translateAndRotate(poseStack);
 
-        // Roughly align with head
-        poseStack.translate(0.0F, -(renderState.eyeHeight/6), 0.0F); // todo: this does not scale properly with minecraft:scale attribute or crouching
+        // align with head
+        poseStack.translate(0.0F, -0.25, 0.0F);
+        if (!renderState.headItem.isEmpty() | !renderState.headEquipment.is(Items.AIR)) { // carved pumpkin makes headItem not empty but headEquipment AIR, any helmet makes headItem empty but headEquipment be the item. this works with both
+            poseStack.scale(1.12f, 1.12f, 1.12f); // sets grow for cube to  5, renders crown atop head armor
+        }
 
         VertexConsumer vertexconsumer = bufferSource.getBuffer(RenderType.entityCutoutNoCull(TEXTURE));
         this.part.render(poseStack, vertexconsumer, packedLight, OverlayTexture.NO_OVERLAY);
