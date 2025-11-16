@@ -6,7 +6,6 @@ public final class DragonEggMod {
     public static final String MOD_ID = "dragoneggmod";
 
     public static void init() {
-        EggCheckHandler.init();
         ModMobEffects.init();
     }
 }

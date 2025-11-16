@@ -1,6 +1,8 @@
 package me.frogtato.dragoneggmod.client;
 
 import me.frogtato.dragoneggmod.registry.ModMobEffects;
+import net.minecraft.core.Holder;
+import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.entity.player.Player;
 
 import java.util.HashMap;
@@ -16,6 +18,9 @@ public final class DragonEggModClient {
     }
 
     public static void update(Player player) {
-        crownState.put(player.getUUID(), player.hasEffect(ModMobEffects.EGG_EFFECT));
+        @SuppressWarnings("unchecked")
+        final Holder<MobEffect> eggEffect = (Holder<MobEffect>) ModMobEffects.EGG_EFFECT;
+
+        crownState.put(player.getUUID(), player.hasEffect(eggEffect));
     }
 }
