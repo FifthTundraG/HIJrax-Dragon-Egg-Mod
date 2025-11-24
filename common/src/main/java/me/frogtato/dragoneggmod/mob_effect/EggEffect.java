@@ -1,6 +1,7 @@
 package me.frogtato.dragoneggmod.mob_effect;
 
 import me.frogtato.dragoneggmod.DragonEggMod;
+import me.frogtato.dragoneggmod.networking.CrownStateSyncHandler;
 import net.minecraft.ChatFormatting;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.effect.MobEffect;
@@ -10,6 +11,8 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.scores.PlayerTeam;
 import net.minecraft.world.scores.Scoreboard;
+
+import java.util.Objects;
 
 public class EggEffect extends MobEffect {
     private int duration = 0;
@@ -32,6 +35,12 @@ public class EggEffect extends MobEffect {
 
         if (duration == 1) { // crude "effect expiry" system
             level.getScoreboard().removePlayerFromTeam(player.getGameProfile().getName(), newTeam);
+
+            // send packet telling client to remove our uuid from crown state
+            CrownStateSyncHandler handler = DragonEggMod.getCrownStateSyncHandler();
+            if (handler != null) {
+                handler.syncCrownState(entity.getUUID(), false, Objects.requireNonNull(entity.getServer()).getPlayerList());
+            }
         }
 
         return true;
@@ -41,6 +50,17 @@ public class EggEffect extends MobEffect {
     public boolean shouldApplyEffectTickThisTick(int pDuration, int amplifier) {
         duration = pDuration;
         return true;
+    }
+
+    @Override
+    public void onEffectAdded(LivingEntity entity, int amplifier) {
+        super.onEffectAdded(entity, amplifier);
+
+        // send packet telling client to add our uuid to crown state
+        CrownStateSyncHandler handler = DragonEggMod.getCrownStateSyncHandler();
+        if (handler != null) {
+            handler.syncCrownState(entity.getUUID(), true, Objects.requireNonNull(entity.getServer()).getPlayerList());
+        }
     }
 
     @SuppressWarnings("SameParameterValue")

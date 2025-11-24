@@ -1,23 +1,17 @@
 package me.frogtato.dragoneggmod.fabric.client;
 
 import me.frogtato.dragoneggmod.client.DragonEggModClient;
+import me.frogtato.dragoneggmod.networking.CrownStateSyncPayload;
 import net.fabricmc.api.ClientModInitializer;
-import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
-import net.minecraft.world.entity.player.Player;
+import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 
 public final class DragonEggModFabricClient implements ClientModInitializer {
-    public static void registerClientTickListener() {
-        ClientTickEvents.END_CLIENT_TICK.register(client -> {
-            if (client.level == null) return;
-            for (Player player : client.level.players()) {
-                DragonEggModClient.update(player);
-            }
-        });
+    private static void onCrownStateSyncPacketReceived(CrownStateSyncPayload payload, ClientPlayNetworking.Context context) {
+        DragonEggModClient.handleStateSync(payload.uuid(), payload.state());
     }
 
     @Override
     public void onInitializeClient() {
-        // This entrypoint is suitable for setting up client-specific logic, such as rendering.
-        registerClientTickListener();
+        ClientPlayNetworking.registerGlobalReceiver(CrownStateSyncPayload.TYPE, DragonEggModFabricClient::onCrownStateSyncPacketReceived);
     }
 }
