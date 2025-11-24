@@ -6,10 +6,12 @@ import me.frogtato.dragoneggmod.neoforge.registry.NeoForgeRegistryProvider;
 import me.frogtato.dragoneggmod.networking.CrownStateSyncPayload;
 import me.frogtato.dragoneggmod.registry.ModRegistries;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.effect.MobEffect;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.neoforge.common.NeoForge;
+import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
 import net.neoforged.neoforge.network.registration.PayloadRegistrar;
 import net.neoforged.neoforge.registries.DeferredRegister;
@@ -30,6 +32,7 @@ public final class DragonEggModNeoForge {
 
         NeoForge.EVENT_BUS.register(new EggCheckHandlerNeoForge());
         bus.addListener(DragonEggModNeoForge::onRegisterPayloads);
+        NeoForge.EVENT_BUS.addListener(DragonEggModNeoForge::onPlayerJoin);
 
         MOB_EFFECT.register(bus);
     }
@@ -40,5 +43,10 @@ public final class DragonEggModNeoForge {
                 CrownStateSyncPayload.TYPE,
                 CrownStateSyncPayload.CODEC
         );
+    }
+
+    private static void onPlayerJoin(PlayerEvent.PlayerLoggedInEvent event) {
+        if (!(event.getEntity() instanceof ServerPlayer serverPlayer)) return;
+        DragonEggMod.onPlayerJoin(serverPlayer);
     }
 }

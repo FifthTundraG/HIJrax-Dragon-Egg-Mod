@@ -7,6 +7,7 @@ import me.frogtato.dragoneggmod.fabric.registry.FabricRegistryProvider;
 import me.frogtato.dragoneggmod.registry.ModRegistries;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
+import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
 import net.minecraft.core.registries.BuiltInRegistries;
 
 public final class DragonEggModFabric implements ModInitializer {
@@ -19,6 +20,10 @@ public final class DragonEggModFabric implements ModInitializer {
         EggCheckHandlerFabric.init();
 
         PayloadTypeRegistry.playS2C().register(CrownStateSyncPayload.TYPE, CrownStateSyncPayload.CODEC);
+        ServerPlayConnectionEvents.INIT.register((handler, server) -> {
+            DragonEggMod.onPlayerJoin(handler.player);
+            System.out.println("player "+handler.player+" joined");
+        });
 
         // Run our common setup.
         DragonEggMod.init();

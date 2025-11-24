@@ -2,11 +2,15 @@ package me.frogtato.dragoneggmod;
 
 import me.frogtato.dragoneggmod.networking.CrownStateSyncHandler;
 import me.frogtato.dragoneggmod.registry.ModMobEffects;
+import net.minecraft.core.Holder;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.effect.MobEffect;
+
+import java.util.List;
+import java.util.Objects;
 
 public final class DragonEggMod {
     public static final String MOD_ID = "dragoneggmod";
-    // see #1 and EggEffect
-    public static final String TEAM_NAME = "dragoneggmod.egg_team";
 
     private static CrownStateSyncHandler crownStateSyncHandler;
 
@@ -19,5 +23,22 @@ public final class DragonEggMod {
     }
     public static CrownStateSyncHandler getCrownStateSyncHandler() {
         return crownStateSyncHandler;
+    }
+
+    /** this should be called in each loader's stuff */
+    public static void onPlayerJoin(ServerPlayer joiningPlayer) {
+        @SuppressWarnings("unchecked")
+        final Holder<MobEffect> eggEffect = (Holder<MobEffect>) ModMobEffects.EGG_EFFECT;
+
+        // on fabric, the current player is not in `PlayerList#getPlayers()` when this is run. make sure they are
+        List<ServerPlayer> players = Objects.requireNonNull(joiningPlayer.getServer()).getPlayerList().getPlayers();
+        if (!players.contains(joiningPlayer)) {
+            players.add(joiningPlayer);
+        }
+
+        for (ServerPlayer player : players) {
+            System.out.println("Sending crown state to player "+joiningPlayer+", "+player.getUUID()+": "+player.hasEffect(eggEffect));
+            getCrownStateSyncHandler().sendCrownStateToPlayer(joiningPlayer, player.getUUID(), player.hasEffect(eggEffect));
+        }
     }
 }
