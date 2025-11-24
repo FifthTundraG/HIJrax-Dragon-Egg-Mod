@@ -37,9 +37,12 @@ public final class DragonEggMod {
             players.add(joiningPlayer);
         }
 
+        // send crown state for all players to our newly joining player
         for (ServerPlayer player : players) {
-            System.out.println("Sending crown state to player "+joiningPlayer+", "+player.getUUID()+": "+player.hasEffect(eggEffect));
             getCrownStateSyncHandler().sendCrownStateToPlayer(joiningPlayer, player.getUUID(), player.hasEffect(eggEffect));
         }
+
+        // sync crown state with all players that are already here (if new player joins with the egg)
+        getCrownStateSyncHandler().syncCrownStateAll(joiningPlayer.getUUID(), joiningPlayer.hasEffect(eggEffect), joiningPlayer.getServer().getPlayerList());
     }
 }
