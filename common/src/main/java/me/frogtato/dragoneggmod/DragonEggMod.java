@@ -6,6 +6,7 @@ import net.minecraft.core.Holder;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.effect.MobEffect;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -31,7 +32,7 @@ public final class DragonEggMod {
         final Holder<MobEffect> eggEffect = (Holder<MobEffect>) ModMobEffects.EGG_EFFECT;
 
         // on fabric, the current player is not in `PlayerList#getPlayers()` when this is run. make sure they are
-        List<ServerPlayer> players = Objects.requireNonNull(joiningPlayer.getServer()).getPlayerList().getPlayers();
+        List<ServerPlayer> players = new ArrayList<>((Objects.requireNonNull(joiningPlayer.getServer())).getPlayerList().getPlayers());
         if (!players.contains(joiningPlayer)) {
             players.add(joiningPlayer);
         }
