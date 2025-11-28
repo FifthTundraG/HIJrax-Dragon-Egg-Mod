@@ -1,5 +1,6 @@
 package me.frogtato.dragoneggmod.client;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.world.entity.player.Player;
 
 import java.util.HashMap;
@@ -12,6 +13,15 @@ public final class DragonEggModClient {
 
     public static boolean hasCrown(Player player) {
         return crownState.getOrDefault(player.getUUID(), false);
+    }
+    public static boolean hasCrown(String username) {
+        if (Minecraft.getInstance().level == null) return false;
+        for (Player player : Minecraft.getInstance().level.players()) {
+            if (player.getName().getString().equals(username)) {
+                return crownState.getOrDefault(player.getUUID(), false);
+            }
+        }
+        return false;
     }
 
     public static void handleStateSync(UUID uuid, boolean state) {

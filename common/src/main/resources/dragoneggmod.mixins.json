@@ -9,7 +9,9 @@
   ],
   "mixins": [
     "BlockItemMixin",
-    "ChestMenuMixin"
+    "ChestMenuMixin",
+    "PlayerMixin",
+    "ServerPlayerMixin"
   ],
   "injectors": {
     "defaultRequire": 1

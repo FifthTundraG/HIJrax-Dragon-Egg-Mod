@@ -2,12 +2,15 @@ package me.frogtato.dragoneggmod.mob_effect;
 
 import me.frogtato.dragoneggmod.DragonEggMod;
 import me.frogtato.dragoneggmod.networking.CrownStateSyncHandler;
+import net.minecraft.network.protocol.game.ClientboundPlayerInfoUpdatePacket;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.players.PlayerList;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 
+import java.util.EnumSet;
 import java.util.Objects;
 
 public class EggEffect extends MobEffect {
@@ -29,6 +32,7 @@ public class EggEffect extends MobEffect {
             if (handler != null) {
                 handler.syncCrownStateAll(entity.getUUID(), false, Objects.requireNonNull(entity.getServer()).getPlayerList());
             }
+            sendPlayerInfoUpdatePacket(level.getServer().getPlayerList());
         }
 
         return true;
@@ -49,5 +53,11 @@ public class EggEffect extends MobEffect {
         if (handler != null) {
             handler.syncCrownStateAll(entity.getUUID(), true, Objects.requireNonNull(entity.getServer()).getPlayerList());
         }
+        sendPlayerInfoUpdatePacket(Objects.requireNonNull(entity.getServer()).getPlayerList());
+    }
+
+    /** for tablist name, we mixin at {@link me.frogtato.dragoneggmod.mixin.ServerPlayerMixin} to change name that's used, but we have to send that to the client, do that here */
+    private void sendPlayerInfoUpdatePacket(PlayerList playerList) {
+        playerList.broadcastAll(new ClientboundPlayerInfoUpdatePacket(EnumSet.of(ClientboundPlayerInfoUpdatePacket.Action.UPDATE_DISPLAY_NAME), playerList.getPlayers()));
     }
 }
